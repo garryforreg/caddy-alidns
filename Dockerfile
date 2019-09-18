@@ -17,10 +17,6 @@ LABEL maintainer "Wang Chan <bejens@163.com>"
 ARG version="1.0.3"
 LABEL caddy_version="$version"
 
-# PHP www-user UID and GID
-ARG PUID="1000"
-ARG PGID="1000"
-
 # Let's Encrypt Agreement
 ENV ACME_AGREE="true"
 
