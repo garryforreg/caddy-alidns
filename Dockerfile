@@ -12,7 +12,7 @@ RUN VERSION=${version} PLUGINS=${plugins} ENABLE_TELEMETRY=${enable_telemetry} /
 # Final Stage
 #
 FROM alpine:3.10
-LABEL maintainer "Wang Chan <bejens@163.com>"
+LABEL maintainer "Garry Guo <garryforreg@gmail.com>"
 
 ARG version="1.0.3"
 LABEL caddy_version="$version"
@@ -39,14 +39,14 @@ COPY --from=builder /install/caddy /usr/bin/caddy
 RUN /usr/bin/caddy -version
 RUN /usr/bin/caddy -plugins
 
-EXPOSE 80 443 2015
+EXPOSE 80 443
 VOLUME /root/.caddy /srv
 WORKDIR /srv
 
-COPY Caddyfile /etc/Caddyfile
+COPY Caddyfile /etc/caddy/Caddyfile
 
 # Install Process Wrapper
 COPY --from=builder /go/bin/parent /bin/parent
 
 ENTRYPOINT ["/bin/parent", "caddy"]
-CMD ["--conf", "/etc/Caddyfile", "--log", "stdout", "--agree=$ACME_AGREE"]
+CMD ["--conf", "/etc/caddy/Caddyfile", "--log", "stdout", "--agree=$ACME_AGREE"]
